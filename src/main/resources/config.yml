@@ -1,0 +1,23 @@
+arenaCenter:
+  world: world
+  x: 0
+  y: 64
+  z: 0
+  pitch: 0
+  yaw: 0
+
+teamRed:
+  world: world
+  x: 100
+  y: 64
+  z: 0
+  pitch: 0
+  yaw: 0
+
+teamBlue:
+  world: world
+  x: -100
+  y: 64
+  z: 0
+  pitch: 0
+  yaw: 0

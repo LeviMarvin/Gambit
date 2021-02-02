@@ -1,0 +1,20 @@
+name: Gambit
+version: ${project.version}
+main: site.levimarvin.dev.gambit.Gambit
+authors: [ Levi_Marvin ]
+description: A unique Minecraft mini-game plugin!
+website: http://dev.levimarvin.site
+depend: [ Minigames-Api ]
+commands:
+  create:
+    description: ''
+  remove:
+    description: ''
+  join:
+    description: ''
+  leave:
+    description: ''
+  menu:
+    description: ''
+  debug:
+    description: ''
