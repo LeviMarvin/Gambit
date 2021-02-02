@@ -61,7 +61,6 @@ public final class Gambit extends JavaPlugin {
 
     private void initCommand() {
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§a + 初始化命令...");
-        cmdMap.put("gambit", Gambit.class);
         cmdMap.put("debug", Debug.class);
         cmdMap.put("menu", Menu.class);
         cmdMap.put("leave", Leave.class);
@@ -83,11 +82,11 @@ public final class Gambit extends JavaPlugin {
     }
 
     private void printPluginInfo() {
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "§e+§6====================§e+");
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "§6§lName: Gambit");
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "§6§lVersion: " + VERSION);
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "§6§lAuthor: Levi_Marvin");
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "§e+§6====================§e+");
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "§e+§6======================§e+");
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "§6§l Name: Gambit");
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "§6§l Version: " + VERSION);
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "§6§l Author: Levi_Marvin");
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "§e+§6======================§e+");
     }
 
     @Override
