@@ -6,6 +6,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import site.levimarvin.dev.gambit.manager.GameManager;
 
+/**
+ * @author Levi Marvin
+ */
 public class Join implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -17,15 +20,39 @@ public class Join implements CommandExecutor {
         if (args.length == 1) {
             switch (args[0].toLowerCase()) {
                 case "red":
-                    GameManager.getManager().getTeam(1).joinTeam(player);
+                    if (GameManager.getManager().teamRed.containsPlayer(player) || GameManager.getManager().teamBlue.containsPlayer(player)) {
+                        player.sendMessage("§cYou already in a Team!");
+                    }
+                    else {
+                        GameManager.getManager().getTeam(1).joinTeam(player);
+                        GameManager.getManager().redScoreBoard.setScoreboard(player);
+                        player.sendMessage("§aYou have successfully join the RED Team!");
+                        GameManager.getManager().joinGame(player, "red");
+
+                    }
+                    return true;
                 case "blue":
-                    GameManager.getManager().getTeam(2).joinTeam(player);
+                    if (
+                            GameManager.getManager().teamRed.containsPlayer(player) ||
+                            GameManager.getManager().teamBlue.containsPlayer(player)
+                    ) {
+                        player.sendMessage("§cYou already in a Team!");
+                    }
+                    else {
+                        GameManager.getManager().getTeam(2).joinTeam(player);
+                        GameManager.getManager().blueScoreBoard.setScoreboard(player);
+                        player.sendMessage("§aYou have successfully join the BLUE Team!");
+                        GameManager.getManager().joinGame(player, "blue");
+                    }
+                    return true;
                 default:
-                    GameManager.getManager().getTeam(1).joinTeam(player);
+                    player.sendMessage("§aThe \"red\" is §c§nRed Team§a.The \"blue\" is §1§nBlue Team§a.");
+                    player.sendMessage("§cPlease use \"red\" or \"blue\".");
+                    return true;
             }
         }
         else {
-            player.sendMessage("§cThis command must have option!");
+            player.sendMessage("§cPlease choose your team!");
         }
         return true;
     }

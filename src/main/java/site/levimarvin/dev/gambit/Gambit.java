@@ -7,16 +7,19 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 import site.levimarvin.dev.gambit.command.*;
+import site.levimarvin.dev.gambit.listener.ArmorListener;
+import site.levimarvin.dev.gambit.listener.EventListener;
+import site.levimarvin.dev.gambit.manager.GameManager;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
- * @author Levi_Marvin
- * @apiNote Minigame-Api 3.3.2
+ * @author Levi Marvin
+ * @apiNote Name: Minigame-Api
+ *          Version: 3.3.2
  */
 public final class Gambit extends JavaPlugin {
     private static Gambit plugin;
@@ -28,35 +31,45 @@ public final class Gambit extends JavaPlugin {
 
     public Config config;
     public Location arenaCenter;
-    public Location teamRed;
-    public Location teamBlue;
+    public Location teamRedLocation;
+    public Location teamBlueLocation;
 
     HashMap<String, Class<?>> cmdMap = new HashMap<>();
 
     @Override
     public void onEnable() {
         plugin = this;
-        Bukkit.getConsoleSender().sendMessage(PREFIX + "§aStarting...");
         printPluginInfo();
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "§a启动中...");
         try {
             initConfig();
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
         initCommand();
+        GameManager.getManager().initGame();
+        initListener();
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§a加载完毕!");
+    }
+
+    private void initListener() {
+        Bukkit.getConsoleSender().sendMessage(PREFIX + "§a + 初始化监听器...");
+        Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EventListener(), this);
     }
 
     private void initConfig() throws IOException, InvalidConfigurationException {
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§a + 初始化配置文件...");
         config = new Config("config", "Gambit");
         File configFile = new File(getDataFolder() + "/config.yml");
-        if (!configFile.exists()) saveDefaultConfig();
+        if (!configFile.exists()) {
+            saveDefaultConfig();
+        }
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§a |   读入内存...");
         config.getConfig().load(configFile);
         arenaCenter = config.getLocation("arenaCenter", true);
-        teamRed = config.getLocation("teamRed", true);
-        teamBlue = config.getLocation("teamBlue", true);
+        teamRedLocation = config.getLocation("teamRed", true);
+        teamBlueLocation = config.getLocation("teamBlue", true);
     }
 
     private void initCommand() {
@@ -65,19 +78,17 @@ public final class Gambit extends JavaPlugin {
         cmdMap.put("menu", Menu.class);
         cmdMap.put("leave", Leave.class);
         cmdMap.put("join", Join.class);
-        cmdMap.put("remove", Remove.class);
-        cmdMap.put("create", Create.class);
         cmdMap.forEach((k, v) -> {
-            CommandExecutor CE = null;
+            CommandExecutor commandExecutor = null;
             try {
-                CE = (CommandExecutor) v.getDeclaredConstructor().newInstance();
+                commandExecutor = (CommandExecutor) v.getDeclaredConstructor().newInstance();
             } catch (
                     InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e
             ) {
                 e.printStackTrace();
             }
-            Bukkit.getConsoleSender().sendMessage(PREFIX + "§a |  注册命令：" + k);
-            Bukkit.getPluginCommand(k + "").setExecutor(CE);
+            Bukkit.getConsoleSender().sendMessage(PREFIX + "§a |   注册命令：" + k);
+            Bukkit.getPluginCommand(k + "").setExecutor(commandExecutor);
         });
     }
 
@@ -93,5 +104,4 @@ public final class Gambit extends JavaPlugin {
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§aClosing...");
     }
-
 }
