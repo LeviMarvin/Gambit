@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import site.levimarvin.dev.gambit.command.*;
 import site.levimarvin.dev.gambit.listener.ArmorListener;
 import site.levimarvin.dev.gambit.listener.EventListener;
+import site.levimarvin.dev.gambit.manager.ArmorManager;
 import site.levimarvin.dev.gambit.manager.GameManager;
 
 import java.io.File;
@@ -49,6 +50,7 @@ public final class Gambit extends JavaPlugin {
         initCommand();
         GameManager.getManager().initGame();
         initListener();
+        ArmorManager.getManager().initArmor();
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§a加载完毕!");
     }
 

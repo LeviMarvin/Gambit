@@ -8,7 +8,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import site.levimarvin.dev.gambit.Gambit;
-import site.levimarvin.dev.gambit.game.MotoWarehouse;
+
+import java.util.HashMap;
 
 /**
  * @author Levi Marvin
@@ -31,9 +32,15 @@ public class GameManager {
     public CustomScoreboard redScoreBoard;
     public CustomScoreboard blueScoreBoard;
     public CustomScoreboard defaultScoreBoard;
-    public MotoWarehouse redWarehouse;
-    public MotoWarehouse blueWarehouse;
+    //public MotoWarehouse redWarehouse;
+    //public MotoWarehouse blueWarehouse;
+    public HashMap<Team, Integer> teamRedMoteNumber = new HashMap<>();
+    public HashMap<Team, Integer> teamBlueMoteNumber = new HashMap<>();
     public boolean playerInGame;
+    public boolean invaderExist;
+    public boolean collectorExist;
+    public boolean sentryExist;
+    public String occupation;
 
     //public GameManager () {}
 

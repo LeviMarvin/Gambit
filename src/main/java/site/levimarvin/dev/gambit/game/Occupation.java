@@ -34,6 +34,19 @@ public class Occupation {
             if (helmetName.equals("Sentry")) {
                 return "Sentry";
             }
+        } else {
+            if (GameManager.getManager().occupation.equals("invader")) {
+                return "Invader";
+            }
+            if (GameManager.getManager().occupation.equals("collector")) {
+                return "Collector";
+            }
+            if (GameManager.getManager().occupation.equals("reaper")) {
+                return "Reaper";
+            }
+            if (GameManager.getManager().occupation.equals("sentry")) {
+                return "Sentry";
+            }
         }
         return null;
     }

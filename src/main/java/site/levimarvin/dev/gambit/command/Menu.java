@@ -16,7 +16,7 @@ public class Menu implements CommandExecutor {
         }
         assert sender instanceof Player;
         Player player = (Player) sender;
-        //TODO
+        site.levimarvin.dev.gambit.game.Menu.openMenu(player);
         return true;
     }
 }
